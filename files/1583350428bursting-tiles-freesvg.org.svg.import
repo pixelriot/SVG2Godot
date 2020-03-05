@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/1583350428bursting-tiles-freesvg.org.svg-6c2367b907cc5da783a34ed197ae1e9a.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://files/1583350428bursting-tiles-freesvg.org.svg"
+dest_files=[ "res://.import/1583350428bursting-tiles-freesvg.org.svg-6c2367b907cc5da783a34ed197ae1e9a.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

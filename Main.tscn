@@ -51,21 +51,23 @@ margin_right = 220.859
 margin_bottom = 101.853
 color = Color( 1, 0, 0, 1 )
 
-[node name="polygon4236-5" type="Line2D" parent="g4651/CC3_Floor1-3"]
+[node name="polygon4236-5_0" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 217.46, -14.1226, 225.436, 7.93219, 225.436, 115.274, 169.608, 115.274, 161.633, 110.554, 161.633, 93.6963, 167.922, 93.6963, 167.922, 90.8497 )
 width = 0.504571
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 7733248
+texture_mode = 231929440
 
-[node name="polygon4236-6" type="Line2D" parent="g4651/CC3_Floor1-3"]
+[node name="polygon4236-5_1" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 169.179, 90.8497, 169.179, 93.6963, 186.969, 93.6963, 186.822, 0.42126, 185.499, 0.42126 )
 width = 0.504571
 default_color = Color( 0, 0, 1, 1 )
+texture_mode = 231932752
 
-[node name="polygon4236-7" type="Line2D" parent="g4651/CC3_Floor1-3"]
+[node name="polygon4236-5_2" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 185.499, -1.41232, 186.819, -1.41232, 186.799, -14.1227, 217.46, -14.1227 )
 width = 0.504571
 default_color = Color( 0, 0, 1, 1 )
+texture_mode = 229064400
 
 [node name="rect6846-3" type="ColorRect" parent="g4651/CC3_Floor1-3"]
 margin_left = 209.317
@@ -81,28 +83,28 @@ margin_right = 188.985
 margin_bottom = 27.8009
 color = Color( 0, 0.501961, 0, 1 )
 
-[node name="path4669" type="Line2D" parent="g4651/CC3_Floor1-3"]
+[node name="path4669_0" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 297.051, -11.2402, 276.695, 93.626, 225.646, 58.6079, 276.279, 190.614, 317.174, 182.284, 297.051, -11.2402 )
 width = 5.46637
 default_color = Color( 0, 1, 1, 1 )
-texture_mode = 7733248
+texture_mode = 235182592
 
-[node name="path4671" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
-position = Vector2( 282.279, 39.5057 )
+[node name="path4671_0" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
+position = Vector2( 281.077, 27.7876 )
 rotation = 1.88766
 scale = Vector2( 0.154506, 0.15655 )
 color = Color( 1, 0.4, 0, 1 )
 polygon = PoolVector2Array( -37.0526, 348.211, -210.734, 307.012, -88.2138, 177.199 )
 
-[node name="path4683" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
+[node name="path4683_0" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
 position = Vector2( 263.201, 73.9161 )
 rotation = 2.95402
 scale = Vector2( 0.154495, 0.156561 )
 color = Color( 1, 0.4, 0, 1 )
 polygon = PoolVector2Array( 109.651, 320.438, -260.034, 447.947, -185.617, 64.0362 )
 
-[node name="path4683_stroke" type="Line2D" parent="g4651/CC3_Floor1-3/path4683"]
+[node name="path4683_0_stroke" type="Line2D" parent="g4651/CC3_Floor1-3/path4683_0"]
 points = PoolVector2Array( 109.651, 320.438, -260.034, 447.947, -185.617, 64.0362, 109.651, 320.438 )
 width = 12.9773
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 7733248
+texture_mode = 231929440

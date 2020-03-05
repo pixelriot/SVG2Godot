@@ -5,6 +5,7 @@ SVG PARSER
 """
 var file_path = "res://files/map01.svg"
 
+
 var xml_data = XMLParser.new()
 var root_node : Node
 var current_node : Node
@@ -35,14 +36,13 @@ func parse() -> void:
 			if xml_data.get_node_type() == XMLParser.NODE_ELEMENT:
 				process_group(xml_data)
 			elif xml_data.get_node_type() == XMLParser.NODE_ELEMENT_END:
-#				post_process_group(current_node)
 				current_node = current_node.get_parent()
 		elif xml_data.get_node_name() == "rect":
-			process_rectangle(xml_data)
+			process_svg_rectangle(xml_data)
 		elif xml_data.get_node_name() == "polygon":
-			process_polygon(xml_data)
+			process_svg_polygon(xml_data)
 		elif xml_data.get_node_name() == "path":
-			process_path(xml_data)
+			process_svg_path(xml_data)
 	print("... end parsing")
 
 
@@ -57,22 +57,7 @@ func process_group(element:XMLParser) -> void:
 	print("group " + new_group.name + " created")
 
 
-func post_process_group(group) -> void:
-	#move all to limiter center
-	var limiter_offset = Vector2.ZERO
-	if group.has_node("Limiter"):
-		limiter_offset = group.get_node("Limiter").rect_position + group.get_node("Limiter").rect_size/2
-	for c in group.get_children():
-		if c is ColorRect:
-			c.rect_position -= limiter_offset
-			if c.name.begins_with("Exit"):
-				c.rect_size = Vector2(4, 5)
-		elif c is Line2D:
-			c.position -= limiter_offset
-	group.position += limiter_offset
-
-
-func process_rectangle(element:XMLParser) -> void:
+func process_svg_rectangle(element:XMLParser) -> void:
 	var new_rect = ColorRect.new()
 	new_rect.name = element.get_named_attribute_value("id")
 	current_node.add_child(new_rect)
@@ -100,7 +85,7 @@ func process_rectangle(element:XMLParser) -> void:
 	print("-rect ", new_rect.name, " created")
 
 
-func process_polygon(element:XMLParser) -> void:
+func process_svg_polygon(element:XMLParser) -> void:
 	var points : PoolVector2Array
 	var points_split = element.get_named_attribute_value("points").split(" ", false)
 	for i in points_split:
@@ -126,7 +111,7 @@ func process_polygon(element:XMLParser) -> void:
 	print("-line ", new_line.name, " created")
 
 
-func process_path(element:XMLParser) -> void:
+func process_svg_path(element:XMLParser) -> void:
 	#prepare element string
 	var element_string = element.get_named_attribute_value("d")
 	for symbol in ["m", "M", "v", "V", "h", "H", "l", "L", "c", "C", "s", "S"]:
@@ -146,63 +131,96 @@ func process_path(element:XMLParser) -> void:
 	string_arrays.append(string_array)
 	
 	#convert into Line2Ds
+	var string_array_count = -1
 	for string_array in string_arrays:
-		var cur_point = Vector2.ZERO
+		var cursor = Vector2.ZERO
 		var points : PoolVector2Array
+		string_array_count += 1
 		
 		for i in string_array.size()-1:
+			print("idx ", str(i), " ", string_array[i])
 			match string_array[i]:
 				"m":
-					cur_point += Vector2(float(string_array[i+1]), float(string_array[i+2]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor += Vector2(float(string_array[i+1]), float(string_array[i+2]))
+						points.append(cursor)
+						i += 2
 				"M":
-					cur_point = Vector2(float(string_array[i+1]), float(string_array[i+2]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor = Vector2(float(string_array[i+1]), float(string_array[i+2]))
+						points.append(cursor)
+						i += 2
 				"v":
-					cur_point.y += float(string_array[i+1])
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor.y += float(string_array[i+1])
+						points.append(cursor)
+						i += 1
 				"V":
-					cur_point.y = float(string_array[i+1])
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor.y = float(string_array[i+1])
+						points.append(cursor)
+						i += 1
 				"h":
-					cur_point.x += float(string_array[i+1])
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor.x += float(string_array[i+1])
+						points.append(cursor)
+						i += 1
 				"H":
-					cur_point.x = float(string_array[i+1])
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor.x = float(string_array[i+1])
+						points.append(cursor)
+						i += 1
 				"l":
-					cur_point += Vector2(float(string_array[i+1]), float(string_array[i+2]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor += Vector2(float(string_array[i+1]), float(string_array[i+2]))
+						points.append(cursor)
+						i += 2
 				"L":
-					cur_point = Vector2(float(
-					string_array[i+1]), float(string_array[i+2]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor = Vector2(float(string_array[i+1]), float(string_array[i+2]))
+						points.append(cursor)
+						i += 2
 				#simpify Bezier curves with straight line
 				"c": 
-					cur_point += Vector2(float(string_array[i+5]), float(string_array[i+6]))
-					points.append(cur_point)
+					while (string_array.size() > i + 6 and string_array[i+1].is_valid_float()):
+						cursor += Vector2(float(string_array[i+5]), float(string_array[i+6]))
+						points.append(cursor)
+						i += 6
 				"C":
-					cur_point = Vector2(float(string_array[i+5]), float(string_array[i+6]))
-					points.append(cur_point)
+					while (string_array.size() > i + 6 and string_array[i+1].is_valid_float()):
+						cursor = Vector2(float(string_array[i+5]), float(string_array[i+6]))
+						points.append(cursor)
+						i += 6
 				"s":
-					cur_point += Vector2(float(string_array[i+3]), float(string_array[i+4]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor += Vector2(float(string_array[i+3]), float(string_array[i+4]))
+						points.append(cursor)
+						i += 4
 				"S":
-					cur_point = Vector2(float(string_array[i+3]), float(string_array[i+4]))
-					points.append(cur_point)
+					while string_array[i+1].is_valid_float():
+						cursor = Vector2(float(string_array[i+3]), float(string_array[i+4]))
+						points.append(cursor)
+						i += 4
 		
 		if string_array[string_array.size()-1].to_upper() == "Z": #closed polygon
-			create_polygon2d(	element.get_named_attribute_value("id"), 
+			create_polygon2d(	element.get_named_attribute_value("id") + "_" + str(string_array_count), 
 								current_node, 
 								points, 
 								get_svg_transform(element), 
 								get_svg_style(element))
 		else:
-			create_line2d(	element.get_named_attribute_value("id"), 
+			create_line2d(	element.get_named_attribute_value("id") + "_" + str(string_array_count), 
 							current_node, 
 							points, 
 							get_svg_transform(element), 
 							get_svg_style(element))
+		
+#		print("-----------")
+#		print("poygon", element.get_named_attribute_value("id") + "_" + str(string_array_count))
+#		printt(string_array)
+#		printt(points)
+		
+		 
 
 
 func create_line2d(	name:String, 
@@ -229,7 +247,6 @@ func create_polygon2d(	name:String,
 						points:PoolVector2Array, 
 						transform:Transform2D, 
 						style:Dictionary) -> void:
-
 	var new_poly
 	#style
 	if style.has("fill") and style["fill"] != "none":
