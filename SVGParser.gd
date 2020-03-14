@@ -5,7 +5,6 @@ SVG PARSER
 """
 var file_path = "res://files/map01.svg"
 
-
 var xml_data = XMLParser.new()
 var root_node : Node
 var current_node : Node
@@ -138,7 +137,6 @@ func process_svg_path(element:XMLParser) -> void:
 		string_array_count += 1
 		
 		for i in string_array.size()-1:
-			print("idx ", str(i), " ", string_array[i])
 			match string_array[i]:
 				"m":
 					while string_array[i+1].is_valid_float():
@@ -214,13 +212,6 @@ func process_svg_path(element:XMLParser) -> void:
 							points, 
 							get_svg_transform(element), 
 							get_svg_style(element))
-		
-#		print("-----------")
-#		print("poygon", element.get_named_attribute_value("id") + "_" + str(string_array_count))
-#		printt(string_array)
-#		printt(points)
-		
-		 
 
 
 func create_line2d(	name:String, 
@@ -303,6 +294,4 @@ static func get_svg_style(element:XMLParser) -> Dictionary:
 		svg_style = "{\"" + svg_style + "\"}"
 		style = parse_json(svg_style)
 	return style
-
-
 
