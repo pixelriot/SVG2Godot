@@ -24,73 +24,55 @@ __meta__ = {
 }
 
 [node name="rect2824-7-9" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 134.865
-margin_top = -14.1226
-margin_right = 225.436
-margin_bottom = 115.274
+margin_left = 142.015
+margin_top = -11.5819
+margin_right = 232.586
+margin_bottom = 117.815
 color = Color( 1, 0.835294, 0.835294, 0.621495 )
 
 [node name="rect2828-2-7" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 209.317
-margin_top = 50.3286
-margin_right = 210.669
-margin_bottom = 51.9445
+margin_left = 199.12
+margin_top = 24.3023
+margin_right = 208.12
+margin_bottom = 35.0608
 color = Color( 1, 1, 0, 1 )
-
-[node name="rect2832-8-1" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 189.12
-margin_top = 76.8306
-margin_right = 190.535
-margin_bottom = 78.7354
-color = Color( 1, 0.4, 0, 1 )
-
-[node name="rect2834-7-8" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 219.444
-margin_top = 100.438
-margin_right = 220.859
-margin_bottom = 101.853
-color = Color( 1, 0, 0, 1 )
 
 [node name="polygon4236-5_0" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 217.46, -14.1226, 225.436, 7.93219, 225.436, 115.274, 169.608, 115.274, 161.633, 110.554, 161.633, 93.6963, 167.922, 93.6963, 167.922, 90.8497 )
 width = 1.00914
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 235182592
 
 [node name="polygon4236-5_1" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 169.179, 90.8497, 169.179, 93.6963, 186.969, 93.6963, 186.822, 0.42126, 185.499, 0.42126 )
 width = 1.00914
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 1869375008
 
 [node name="polygon4236-5_2" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 185.499, -1.41232, 186.819, -1.41232, 186.799, -14.1227, 217.46, -14.1227 )
 width = 1.00914
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 1931489056
 
 [node name="rect6846-3" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 209.317
-margin_top = 7.18921
-margin_right = 210.669
-margin_bottom = 8.80513
+margin_left = 201.357
+margin_top = 8.43906
+margin_right = 209.415
+margin_bottom = 18.0721
 color = Color( 1, 0, 0, 1 )
 
 [node name="rect2700-5" type="ColorRect" parent="g4651/CC3_Floor1-3"]
-margin_left = 187.633
-margin_top = 26.1849
-margin_right = 188.985
-margin_bottom = 27.8009
+margin_left = 189.758
+margin_top = 18.4302
+margin_right = 197.33
+margin_bottom = 27.4822
 color = Color( 0, 0.501961, 0, 1 )
 
 [node name="path4669_0_stroke" type="Line2D" parent="g4651/CC3_Floor1-3"]
 points = PoolVector2Array( 170.432, 57.5659, 147.315, 68.0875, 146.931, 106.933, 157.499, 86.0199, 179.543, 86.1276, 180.417, 63.3023, 170.432, 57.5659 )
 width = 2.20019
 default_color = Color( 0, 0, 1, 1 )
-texture_mode = 229064400
 
 [node name="path4671_0" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
-position = Vector2( 206.295, 23.9883 )
+position = Vector2( 210.172, 24.0945 )
 rotation = 0.830595
 scale = Vector2( 0.154501, 0.156554 )
 color = Color( 1, 0.4, 0, 1 )
@@ -110,3 +92,8 @@ polygon = PoolVector2Array( 156.489, -10.5011, 140.532, -1.04064, 141.135, 0.943
 [node name="path3009_1" type="Polygon2D" parent="g4651/CC3_Floor1-3"]
 color = Color( 0.870588, 0, 0, 1 )
 polygon = PoolVector2Array( 150.106, -6.36033, 152.55, -3.91615, 150.106, -1.47196, 147.662, -3.91615, 150.106, -6.36033 )
+
+[node name="path4553_0" type="Line2D" parent="g4651/CC3_Floor1-3"]
+points = PoolVector2Array( 145.489, 58.2728, 145.938, 47.1968, 153.855, 47.3311, 148.611, 37.1331 )
+width = 0.756857
+default_color = Color( 0, 1, 0, 1 )

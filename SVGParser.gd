@@ -4,6 +4,7 @@ extends EditorScript
 SVG PARSER
 """
 var file_path = "res://files/map01.svg"
+var use_path2d = false #true to deploy Path2D for vector paths
 
 var xml_data = XMLParser.new()
 var root_node : Node
@@ -134,6 +135,7 @@ func process_svg_path(element:XMLParser) -> void:
 	for string_array in string_arrays:
 		var cursor = Vector2.ZERO
 		var points : PoolVector2Array
+		var curve = Curve2D.new()
 		string_array_count += 1
 		
 		for i in string_array.size()-1:
@@ -147,6 +149,9 @@ func process_svg_path(element:XMLParser) -> void:
 					while string_array[i+1].is_valid_float():
 						cursor = Vector2(float(string_array[i+1]), float(string_array[i+2]))
 						points.append(cursor)
+						
+						curve.add_point(Vector2(float(string_array[i+1]), float(string_array[i+2])))
+						
 						i += 2
 				"v":
 					while string_array[i+1].is_valid_float():
@@ -186,8 +191,13 @@ func process_svg_path(element:XMLParser) -> void:
 						i += 6
 				"C":
 					while (string_array.size() > i + 6 and string_array[i+1].is_valid_float()):
+						var controll_point_in = Vector2(float(string_array[i+5]), float(string_array[i+6])) - cursor
 						cursor = Vector2(float(string_array[i+5]), float(string_array[i+6]))
 						points.append(cursor)
+						curve.add_point(	cursor,
+											-cursor + Vector2(float(string_array[i+3]), float(string_array[i+4])),
+											cursor - Vector2(float(string_array[i+3]), float(string_array[i+4]))
+										)
 						i += 6
 				"s":
 					while string_array[i+1].is_valid_float():
@@ -200,7 +210,14 @@ func process_svg_path(element:XMLParser) -> void:
 						points.append(cursor)
 						i += 4
 		
-		if string_array[string_array.size()-1].to_upper() == "Z": #closed polygon
+		if use_path2d and curve.get_point_count() > 1:
+			create_path2d(	element.get_named_attribute_value("id") + "_" + str(string_array_count), 
+							current_node, 
+							curve, 
+							get_svg_transform(element), 
+							get_svg_style(element))
+		
+		elif string_array[string_array.size()-1].to_upper() == "Z": #closed polygon
 			create_polygon2d(	element.get_named_attribute_value("id") + "_" + str(string_array_count), 
 								current_node, 
 								points, 
@@ -212,6 +229,25 @@ func process_svg_path(element:XMLParser) -> void:
 							points, 
 							get_svg_transform(element), 
 							get_svg_style(element))
+
+
+func create_path2d(	name:String, 
+					parent:Node, 
+					curve:Curve2D, 
+					transform:Transform2D, 
+					style:Dictionary) -> void:
+	var new_path = Path2D.new()
+	new_path.name = name
+	new_path.transform = transform
+	parent.add_child(new_path)
+	new_path.set_owner(root_node)
+	new_path.curve = curve
+	
+	#style
+	if style.has("stroke"):
+		new_path.modulate = Color(style["stroke"])
+#	if style.has("stroke-width"):
+#		new_path.width = float(style["stroke-width"])
 
 
 func create_line2d(	name:String, 
