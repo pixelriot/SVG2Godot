@@ -114,7 +114,7 @@ func process_svg_polygon(element:XMLParser) -> void:
 func process_svg_path(element:XMLParser) -> void:
 	#prepare element string
 	var element_string = element.get_named_attribute_value("d")
-	for symbol in ["m", "M", "v", "V", "h", "H", "l", "L", "c", "C", "s", "S"]:
+	for symbol in ["m", "M", "v", "V", "h", "H", "l", "L", "c", "C", "s", "S", "z", "Z"]:
 		element_string = element_string.replacen(symbol, " " + symbol + " ")
 	element_string = element_string.replacen(",", " ")
 	
@@ -141,12 +141,12 @@ func process_svg_path(element:XMLParser) -> void:
 		for i in string_array.size()-1:
 			match string_array[i]:
 				"m":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 2 and string_array[i+1].is_valid_float():
 						cursor += Vector2(float(string_array[i+1]), float(string_array[i+2]))
 						points.append(cursor)
 						i += 2
 				"M":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 2 and string_array[i+1].is_valid_float():
 						cursor = Vector2(float(string_array[i+1]), float(string_array[i+2]))
 						points.append(cursor)
 						
@@ -174,23 +174,23 @@ func process_svg_path(element:XMLParser) -> void:
 						points.append(cursor)
 						i += 1
 				"l":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 2 and string_array[i+1].is_valid_float():
 						cursor += Vector2(float(string_array[i+1]), float(string_array[i+2]))
 						points.append(cursor)
 						i += 2
 				"L":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 2 and string_array[i+1].is_valid_float():
 						cursor = Vector2(float(string_array[i+1]), float(string_array[i+2]))
 						points.append(cursor)
 						i += 2
 				#simpify Bezier curves with straight line
 				"c": 
-					while (string_array.size() > i + 6 and string_array[i+1].is_valid_float()):
+					while string_array.size() > i + 6 and string_array[i+1].is_valid_float():
 						cursor += Vector2(float(string_array[i+5]), float(string_array[i+6]))
 						points.append(cursor)
 						i += 6
 				"C":
-					while (string_array.size() > i + 6 and string_array[i+1].is_valid_float()):
+					while string_array.size() > i + 6 and string_array[i+1].is_valid_float():
 						var controll_point_in = Vector2(float(string_array[i+5]), float(string_array[i+6])) - cursor
 						cursor = Vector2(float(string_array[i+5]), float(string_array[i+6]))
 						points.append(cursor)
@@ -200,12 +200,12 @@ func process_svg_path(element:XMLParser) -> void:
 										)
 						i += 6
 				"s":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 4 and string_array[i+1].is_valid_float():
 						cursor += Vector2(float(string_array[i+3]), float(string_array[i+4]))
 						points.append(cursor)
 						i += 4
 				"S":
-					while string_array[i+1].is_valid_float():
+					while string_array.size() > i + 4 and string_array[i+1].is_valid_float():
 						cursor = Vector2(float(string_array[i+3]), float(string_array[i+4]))
 						points.append(cursor)
 						i += 4
