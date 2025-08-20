@@ -1,3 +1,6 @@
+This repo is no longer maintained. Check out this great project instead: [EZ Curved Lines](https://github.com/Teaching-myself-Godot/ez-curved-lines-2d)
+
+
 # SVG2Godot
 
 Editor script to import simple SVG files as standard nodes into [Godot game engine](https://github.com/godotengine/godot).
